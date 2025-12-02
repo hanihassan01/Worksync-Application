@@ -105,9 +105,7 @@ class Login extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const Home_page(),
-                      ),
+                      MaterialPageRoute(builder: (context) => Home_page()),
                     );
                   },
                   child: Text(
