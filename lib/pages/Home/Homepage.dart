@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worksync/pages/Sales/salesoder.dart';
+import 'package:worksync/pages/Sales/sales_lisy.dart';
 
 class Home_page extends StatefulWidget {
   Home_page({super.key});
@@ -14,7 +15,7 @@ class _Home_pageState extends State<Home_page> {
   final List<Widget> _screens = [
     Center(child: Text("Home Screen")),
     Center(child: Text("Attendance Screen")),
-    Center(child: Text("Sales Screen")),
+    const SalesListPage(),
     Center(child: Text("Stock Screen")),
     Center(child: Text("Profile Screen")),
   ];
@@ -46,7 +47,7 @@ class _Home_pageState extends State<Home_page> {
         ],
       ),
       body: _currentIndex == 0
-          ? Expanded(
+          ? SingleChildScrollView(
               child: Container(
                 color: Color(0xFFe8f0f8),
                 child: Column(
