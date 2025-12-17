@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worksync/pages/Sales/salesoder.dart';
 import 'package:worksync/pages/Sales/sales_lisy.dart';
+import 'package:worksync/pages/Delivery/delivery_list.dart';
 
 class Home_page extends StatefulWidget {
   Home_page({super.key});
@@ -16,7 +17,7 @@ class _Home_pageState extends State<Home_page> {
     Center(child: Text("Home Screen")),
     Center(child: Text("Attendance Screen")),
     const SalesListPage(),
-    Center(child: Text("Stock Screen")),
+    const DeliveryListPage(),
     Center(child: Text("Profile Screen")),
   ];
 
@@ -454,8 +455,8 @@ class _Home_pageState extends State<Home_page> {
               label: 'Sales',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.inventory_2_outlined),
-              label: 'Stock',
+              icon: Icon(Icons.local_shipping_outlined),
+              label: 'Deliveries',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),
