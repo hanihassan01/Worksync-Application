@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:worksync/pages/Sales/salesoder.dart';
 import 'package:worksync/pages/Sales/sales_lisy.dart';
 import 'package:worksync/pages/Delivery/delivery_list.dart';
+import 'package:worksync/pages/stock/stock_list.dart';
+import 'package:worksync/pages/profile/profilepage.dart';
 
 class Home_page extends StatefulWidget {
   Home_page({super.key});
@@ -18,7 +20,7 @@ class _Home_pageState extends State<Home_page> {
     Center(child: Text("Attendance Screen")),
     const SalesListPage(),
     const DeliveryListPage(),
-    Center(child: Text("Profile Screen")),
+    const ProfilePage(),
   ];
 
   @override
@@ -139,28 +141,38 @@ class _Home_pageState extends State<Home_page> {
                             color: Color(0xFFe8f0f8),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  height: 81,
-                                  width: 80,
-                                  child: Icon(
-                                    Icons.inventory_2_outlined,
-                                    color: Colors.black,
-                                    size: 40,
-                                  ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const StockListPage(),
                                 ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'check inventrory',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ],
+                              );
+                            },
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    height: 81,
+                                    width: 80,
+                                    child: Icon(
+                                      Icons.inventory_2_outlined,
+                                      color: Colors.black,
+                                      size: 40,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'check inventrory',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
