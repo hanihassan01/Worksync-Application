@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:worksync/pages/Sales/salesoder.dart';
 import 'package:worksync/pages/Sales/sales_lisy.dart';
 import 'package:worksync/pages/Delivery/delivery_list.dart';
+import 'package:worksync/pages/Delivery/delivery_oder.dart';
 import 'package:worksync/pages/stock/stock_list.dart';
 import 'package:worksync/pages/profile/profilepage.dart';
+import 'package:worksync/pages/attenndance/attendence_page.dart';
 
 class Home_page extends StatefulWidget {
   Home_page({super.key});
@@ -17,7 +19,7 @@ class _Home_pageState extends State<Home_page> {
 
   final List<Widget> _screens = [
     Center(child: Text("Home Screen")),
-    Center(child: Text("Attendance Screen")),
+    const AttendancePage(),
     const SalesListPage(),
     const DeliveryListPage(),
     const ProfilePage(),
@@ -57,91 +59,109 @@ class _Home_pageState extends State<Home_page> {
                   children: [
                     _buildProfileCard('Sarah'),
                     SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => InvoiceScreen(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: 120,
-                            height: 110,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFe8f0f8),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    height: 81,
-                                    width: 80,
-                                    child: Icon(
-                                      Icons.add_shopping_cart,
-                                      color: Colors.black,
-                                      size: 40,
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'add new sales',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 120,
-                          height: 110,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFe8f0f8),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  height: 81,
-                                  width: 80,
-                                  child: Icon(
-                                    Icons.local_shipping_outlined,
-                                    color: Colors.black,
-                                    size: 40,
-                                  ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => InvoiceScreen(),
                                 ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'View deliveries',
-                                  style: TextStyle(color: Colors.black),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 110,
+                              margin: const EdgeInsets.only(right: 15),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFe8f0f8),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(
+                                          255,
+                                          255,
+                                          255,
+                                          255,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 81,
+                                      width: 80,
+                                      child: Icon(
+                                        Icons.add_shopping_cart,
+                                        color: Colors.black,
+                                        size: 40,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'add new sales',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          width: 120,
-                          height: 110,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFe8f0f8),
-                            borderRadius: BorderRadius.circular(15),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DeliveryOrderPage(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 110,
+                              margin: const EdgeInsets.only(right: 15),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFe8f0f8),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(
+                                          255,
+                                          255,
+                                          255,
+                                          255,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 81,
+                                      width: 80,
+                                      child: Icon(
+                                        Icons.local_shipping_outlined,
+                                        color: Colors.black,
+                                        size: 40,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'Create Deliveries',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                          child: InkWell(
+                          InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -150,33 +170,95 @@ class _Home_pageState extends State<Home_page> {
                                 ),
                               );
                             },
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      borderRadius: BorderRadius.circular(15),
+                            child: Container(
+                              width: 120,
+                              height: 110,
+                              margin: const EdgeInsets.only(right: 15),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFe8f0f8),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(
+                                          255,
+                                          255,
+                                          255,
+                                          255,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 81,
+                                      width: 80,
+                                      child: Icon(
+                                        Icons.inventory_2_outlined,
+                                        color: Colors.black,
+                                        size: 40,
+                                      ),
                                     ),
-                                    height: 81,
-                                    width: 80,
-                                    child: Icon(
-                                      Icons.inventory_2_outlined,
-                                      color: Colors.black,
-                                      size: 40,
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'check inventrory',
+                                      style: TextStyle(color: Colors.black),
                                     ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'check inventrory',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SalesListPage(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 110,
+                              margin: const EdgeInsets.only(right: 15),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFe8f0f8),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(
+                                          255,
+                                          255,
+                                          255,
+                                          255,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      height: 81,
+                                      width: 80,
+                                      child: Icon(
+                                        Icons.receipt_long_outlined,
+                                        color: Colors.black,
+                                        size: 40,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'create invoice',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 20),
                     Padding(
