@@ -22,30 +22,30 @@ class AddressDetailsPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 children: [
-                  _buildTextField(label: 'Address Label', value: 'Home'),
+                  _buildTextField(context, label: 'Address Label', value: 'Home'),
                   const SizedBox(height: 16),
-                  _buildTextField(label: 'Street Address 1', value: '123 Main St'),
+                  _buildTextField(context, label: 'Street Address 1', value: '123 Main St'),
                   const SizedBox(height: 16),
-                  _buildTextField(label: 'Street Address 2', value: 'Apt 4B'),
+                  _buildTextField(context, label: 'Street Address 2', value: 'Apt 4B'),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: _buildTextField(label: 'City', value: 'Anytown')),
+                      Expanded(child: _buildTextField(context, label: 'City', value: 'Anytown')),
                       const SizedBox(width: 16),
-                      Expanded(child: _buildTextField(label: 'State', value: 'CA')),
+                      Expanded(child: _buildTextField(context, label: 'State', value: 'CA')),
                     ],
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: _buildTextField(label: 'Zip Code', value: '90210')),
+                      Expanded(child: _buildTextField(context, label: 'Zip Code', value: '90210')),
                       const SizedBox(width: 16),
-                      Expanded(child: _buildDropdownField()),
+                      Expanded(child: _buildDropdownField(context)),
                     ],
                   ),
                 ],
@@ -74,14 +74,14 @@ class AddressDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({required String label, required String value}) {
+  Widget _buildTextField(BuildContext context, {required String label, required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: TextStyle(
-            color: Colors.grey.shade600,
+            color: Theme.of(context).textTheme.bodySmall?.color,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -93,21 +93,21 @@ class AddressDetailsPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             filled: true,
-            fillColor: Colors.grey.shade100,
+            fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildDropdownField() {
+  Widget _buildDropdownField(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Country',
           style: TextStyle(
-            color: Colors.grey.shade600,
+            color: Theme.of(context).textTheme.bodySmall?.color,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -126,7 +126,7 @@ class AddressDetailsPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             filled: true,
-            fillColor: Colors.grey.shade100,
+            fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           ),
         ),
       ],

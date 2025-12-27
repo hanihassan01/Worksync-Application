@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:worksync/pages/profile/address_details_page.dart';
 import 'package:worksync/pages/profile/app_settings_page.dart';
 import 'package:worksync/pages/profile/change_password_page.dart';
@@ -9,6 +10,7 @@ import 'package:worksync/pages/profile/widgets/profile_card.dart';
 import 'package:worksync/pages/profile/widgets/section_title.dart';
 import 'package:worksync/pages/profile/widgets/menu_list_item.dart';
 import 'package:worksync/pages/profile/widgets/toggle_switch.dart';
+import 'package:worksync/theme_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,23 +20,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _darkMode = false;
   bool _enableBiometrics = false;
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.grey.shade100,
-        leading: const Icon(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: Icon(
           Icons.arrow_back_ios_new,
-          color: Colors.black,
+          color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
         ),
-        title: const Text(
+        title: Text(
           'Profile',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
+          ),
         ),
         centerTitle: true,
       ),
@@ -51,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SectionTitle(title: 'Address & Security'),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
@@ -82,11 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     icon: Icons.dark_mode_outlined,
                     label: 'Dark Mode',
                     trailing: ToggleSwitch(
-                      value: _darkMode,
+                      value: themeProvider.themeMode == ThemeMode.dark,
                       onChanged: (value) {
-                        setState(() {
-                          _darkMode = value;
-                        });
+                        themeProvider.toggleTheme();
                       },
                     ),
                   ),
@@ -109,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SectionTitle(title: 'Settings'),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
@@ -165,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
               width: double.infinity,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).cardColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

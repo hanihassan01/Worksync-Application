@@ -1,4 +1,4 @@
-import 'package.flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AppSettingsPage extends StatefulWidget {
   const AppSettingsPage({super.key});
@@ -22,7 +22,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionTitle('Display'),
-            _buildSettingsCard([
+            _buildSettingsCard(context, [
               _buildSettingsMenuItem(
                 label: 'Text Size',
                 onTap: () {},
@@ -34,7 +34,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
             ]),
             const SizedBox(height: 24),
             _buildSectionTitle('Data & Sync'),
-            _buildSettingsCard([
+            _buildSettingsCard(context, [
               _buildSyncToggle(
                 label: 'Auto-Sync Data',
                 description: 'Automatically sync data in background',
@@ -55,8 +55,9 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
             ]),
             const SizedBox(height: 24),
             _buildSectionTitle('About App'),
-            _buildSettingsCard([
+            _buildSettingsCard(context, [
               _buildInfoMenuItem(
+                context,
                 label: 'App Version',
                 value: 'v1.2.5',
               ),
@@ -88,10 +89,10 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
     );
   }
 
-  Widget _buildSettingsCard(List<Widget> children) {
+  Widget _buildSettingsCard(BuildContext context, List<Widget> children) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -131,25 +132,27 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
+                const SizedBox(height: 4),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Switch(
             value: value,
@@ -160,7 +163,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
     );
   }
 
-  Widget _buildInfoMenuItem({required String label, required String value}) {
+  Widget _buildInfoMenuItem(BuildContext context, {required String label, required String value}) {
     return ListTile(
       title: Text(
         label,
@@ -173,7 +176,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         value,
         style: TextStyle(
           fontSize: 16,
-          color: Colors.grey.shade600,
+          color: Theme.of(context).textTheme.bodySmall?.color,
         ),
       ),
     );

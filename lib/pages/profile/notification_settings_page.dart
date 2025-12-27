@@ -109,7 +109,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   Widget _buildNotificationCard(List<Widget> children) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(

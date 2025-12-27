@@ -14,17 +14,17 @@ class HelpSupportPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSearchBar(),
+            _buildSearchBar(context),
             const SizedBox(height: 24),
             _buildSectionTitle('Popular Topics'),
-            _buildHelpCard([
+            _buildHelpCard(context, [
               _buildHelpMenuItem('How to Clock In/Out?'),
               _buildHelpMenuItem('Manage Sales Orders'),
               _buildHelpMenuItem('Troubleshooting Sync Issues'),
             ]),
             const SizedBox(height: 24),
             _buildSectionTitle('Contact Support'),
-            _buildHelpCard([
+            _buildHelpCard(context, [
               _buildHelpMenuItem(
                 'Chat with Support',
                 leading: const Icon(Icons.chat, color: Colors.green),
@@ -40,7 +40,7 @@ class HelpSupportPage extends StatelessWidget {
             ]),
             const SizedBox(height: 24),
             _buildSectionTitle('Guides & Tutorials'),
-            _buildHelpCard([
+            _buildHelpCard(context, [
               _buildHelpMenuItem(
                 'User Manual',
                 leading: const Icon(Icons.menu_book),
@@ -56,7 +56,7 @@ class HelpSupportPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
         hintText: 'Search FAQs or Articles...',
@@ -66,7 +66,7 @@ class HelpSupportPage extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
         filled: true,
-        fillColor: Colors.grey.shade200,
+        fillColor: Theme.of(context).inputDecorationTheme.fillColor,
       ),
     );
   }
@@ -84,10 +84,10 @@ class HelpSupportPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHelpCard(List<Widget> children) {
+  Widget _buildHelpCard(BuildContext context, List<Widget> children) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
