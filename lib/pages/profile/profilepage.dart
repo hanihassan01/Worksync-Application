@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:worksync/pages/profile/address_details_page.dart';
+import 'package:worksync/pages/profile/app_settings_page.dart';
+import 'package:worksync/pages/profile/change_password_page.dart';
+import 'package:worksync/pages/profile/help_support_page.dart';
+import 'package:worksync/pages/profile/notification_settings_page.dart';
+import 'package:worksync/pages/profile/privacy_security_page.dart';
+import 'package:worksync/pages/profile/widgets/profile_card.dart';
+import 'package:worksync/pages/profile/widgets/section_title.dart';
+import 'package:worksync/pages/profile/widgets/menu_list_item.dart';
+import 'package:worksync/pages/profile/widgets/toggle_switch.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -8,284 +18,182 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool _darkMode = false;
   bool _enableBiometrics = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.grey.shade100,
+        leading: const Icon(
+          Icons.arrow_back_ios_new,
+          color: Colors.black,
+        ),
+        title: const Text(
+          'Profile',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
-        child: Container(
-          color: Colors.grey.shade100,
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              // User Profile Card
-              _buildProfileCard(),
-              const SizedBox(height: 24),
-              // Address & Security Section
-              _buildSection(
-                title: 'Address & Security',
-                items: [
-                  _buildMenuItem(
-                    icon: Icons.location_on,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const ProfileCard(
+              name: 'Alex Johnson',
+              email: 'alex.j@worksync.com',
+              imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDYJvKEZ3UFWlvpmnXnUrr0hwejlUmmmQXqpcNZFenKFT2JAE9QLkgxORD0IhvNi8-ihmN95HOiDqDT5a5z2MCLfVfaSLlydkx349kEi91utmAD2Qs3bauLETyG2soNQq8PTua2_PBfQE5BWk2CVjS1PKV_61VeTsXub9WJKaOmzS8b3NyYUHs-3tTiI99SSxVVDkSBzCvjLMXydseXrJhEJj06WO7N53BMtpXDhmFGDCT5CfhN2tT3BGhwoV6Vbv4jV_cxeTHPwBg',
+            ),
+            const SectionTitle(title: 'Address & Security'),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  MenuListItem(
+                    icon: Icons.location_on_outlined,
                     label: 'Saved Address',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AddressDetailsPage()),
+                      );
+                    },
                   ),
-                  _buildMenuItem(
-                    icon: Icons.lock,
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.lock_outline,
                     label: 'Change Password',
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ChangePasswordPage()),
+                      );
+                    },
                   ),
-                  _buildMenuItem(
-                    icon: Icons.credit_card,
-                    label: 'Change PIN',
-                    onTap: () {},
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.dark_mode_outlined,
+                    label: 'Dark Mode',
+                    trailing: ToggleSwitch(
+                      value: _darkMode,
+                      onChanged: (value) {
+                        setState(() {
+                          _darkMode = value;
+                        });
+                      },
+                    ),
                   ),
-                  _buildBiometricsToggle(),
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.fingerprint,
+                    label: 'Enable Biometrics',
+                    trailing: ToggleSwitch(
+                      value: _enableBiometrics,
+                      onChanged: (value) {
+                        setState(() {
+                          _enableBiometrics = value;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 24),
-              // Settings Section
-              _buildSection(
-                title: 'Settings',
-                items: [
-                  _buildMenuItem(
-                    icon: Icons.notifications,
+            ),
+            const SectionTitle(title: 'Settings'),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  MenuListItem(
+                    icon: Icons.notifications_outlined,
                     label: 'Notification',
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const NotificationSettingsPage()),
+                      );
+                    },
                   ),
-                  _buildMenuItem(
-                    icon: Icons.security,
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.security_outlined,
                     label: 'Privacy & Security',
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PrivacySecurityPage()),
+                      );
+                    },
                   ),
-                  _buildMenuItem(
-                    icon: Icons.help,
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.help_outline,
                     label: 'Help & Support',
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HelpSupportPage()),
+                      );
+                    },
                   ),
-                  _buildMenuItem(
-                    icon: Icons.settings,
+                  const Divider(height: 1, indent: 16, endIndent: 16),
+                  MenuListItem(
+                    icon: Icons.settings_outlined,
                     label: 'App Settings',
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AppSettingsPage()),
+                      );
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              // Sign Out Button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () {
-                        _showSignOutDialog();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.logout,
-                              color: Colors.orange.shade600,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Sign Out',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.orange.shade600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileCard() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            // Avatar
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.orange.shade200,
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.orange.shade700,
-              ),
-            ),
-            const SizedBox(width: 16),
-            // User Info
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Alex Johnson',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'alex.j@worksync.com',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
-                  const SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      '✎ Edit Profile',
+                onPressed: _showSignOutDialog,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      color: Colors.orange.shade600,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Sign Out',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.blue.shade600,
+                        color: Colors.orange.shade600,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            // Chevron
-            Icon(Icons.chevron_right, color: Colors.grey.shade400),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSection({required String title, required List<Widget> items}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, bottom: 12),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade600,
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: List.generate(
-                items.length,
-                (index) => Column(
-                  children: [
-                    items[index],
-                    if (index < items.length - 1)
-                      Divider(
-                        height: 1,
-                        color: Colors.grey.shade200,
-                        indent: 16,
-                        endIndent: 16,
-                      ),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14),
-          child: Row(
-            children: [
-              Icon(icon, color: Colors.grey.shade700, size: 20),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 20),
-            ],
-          ),
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildBiometricsToggle() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14),
-      child: Row(
-        children: [
-          Icon(Icons.fingerprint, color: Colors.grey.shade700, size: 20),
-          const SizedBox(width: 16),
-          Expanded(
-            child: const Text(
-              'Enable Biometrics',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-          ),
-          Transform.scale(
-            scale: 0.8,
-            child: Switch(
-              value: _enableBiometrics,
-              onChanged: (value) {
-                setState(() {
-                  _enableBiometrics = value;
-                });
-              },
-              activeColor: Colors.blue.shade600,
-              inactiveThumbColor: Colors.grey.shade400,
-              inactiveTrackColor: Colors.grey.shade300,
-            ),
-          ),
-        ],
       ),
     );
   }
