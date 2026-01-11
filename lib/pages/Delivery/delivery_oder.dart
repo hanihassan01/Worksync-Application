@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DeliveryOrderPage extends StatefulWidget {
   final String? orderId;
@@ -93,6 +94,16 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     _customerPhoneController.text = customerPhone;
     _deliveryAddressController.text = deliveryAddress;
     _initializeQtyControllers();
+  }
+
+  void _launchMap(String address) async {
+    final query = Uri.encodeComponent(address);
+    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void _initializeQtyControllers() {
@@ -248,15 +259,18 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Icon(
-                              Icons.map_outlined,
-                              color: Color.fromARGB(255, 0, 149, 255),
-                              size: 54,
+                          GestureDetector(
+                            onTap: () => _launchMap(deliveryAddress),
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.map_outlined,
+                                color: Color.fromARGB(255, 0, 149, 255),
+                                size: 54,
+                              ),
                             ),
                           ),
                         ],
@@ -478,9 +492,11 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     if (delivered == ordered) {
       return const Icon(Icons.check_circle, color: Colors.green, size: 24);
     } else if (delivered == 0) {
-      return _buildStatusBadge('NOT DELIV.', Colors.orange);
-    } else {
+      return _buildStatusBadge('NOT DELIV.', Colors.red);
+    } else if (delivered > 0 && delivered < ordered) {
       return _buildStatusBadge('PARTIAL', Colors.orange);
+    } else {
+      return const SizedBox(width: 50);
     }
   }
 
@@ -505,7 +521,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
       child: Row(
         children: [
           const Expanded(
-            flex: 4,
+            flex: 5,
             child: Text('ITEM',
                 style: TextStyle(
                     fontSize: 11,
@@ -513,7 +529,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     color: Colors.grey)),
           ),
           const Expanded(
-            flex: 1,
+            flex: 2,
             child: Text('ORD.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -522,7 +538,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     color: Colors.grey)),
           ),
           const Expanded(
-            flex: 2,
+            flex: 3,
             child: Text('DELIVERED',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -550,33 +566,36 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(item['name'],
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14)),
+                const SizedBox(height: 4),
                 Text(item['unit'],
                     style: const TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Text(
               item['ordered'].toString(),
               textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Center(
               child: Container(
-                width: 50,
-                height: 35,
+                width: 60,
+                height: 40,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
@@ -591,7 +610,20 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      item['delivered'] = int.tryParse(value) ?? 0;
+                      int deliveredQty = int.tryParse(value) ?? 0;
+                      if (deliveredQty < 0) {
+                        deliveredQty = 0;
+                      } else if (deliveredQty > item['ordered']) {
+                        deliveredQty = item['ordered'];
+                      }
+                      item['delivered'] = deliveredQty;
+                      _deliveredQtyControllers[index].text =
+                          deliveredQty.toString();
+                      _deliveredQtyControllers[index].selection =
+                          TextSelection.fromPosition(TextPosition(
+                              offset: _deliveredQtyControllers[index]
+                                  .text
+                                  .length));
                     });
                   },
                 ),
