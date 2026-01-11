@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DeliveryOrderPage extends StatefulWidget {
   final String? orderId;
@@ -97,8 +98,18 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
   }
 
   void _launchMap(String address) async {
+    // Get current location
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      // Handle permission denied
+      return;
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
     final query = Uri.encodeComponent(address);
-    final url = 'https://www.google.com/maps/search/?api=1&query=$query';
+    final url =
+        'https://www.google.com/maps/dir/?api=1&origin=${position.latitude},${position.longitude}&destination=$query';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -597,8 +608,9 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                 width: 60,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
                 ),
                 child: TextField(
                   controller: _deliveredQtyControllers[index],
