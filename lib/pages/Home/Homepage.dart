@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:worksync/pages/Sales/salesoder.dart';
 import 'package:worksync/pages/Sales/sales_lisy.dart';
 import 'package:worksync/pages/Delivery/delivery_list.dart';
-import 'package:worksync/pages/Delivery/delivery_oder.dart';
+import 'package:worksync/pages/Delivery/create_delivery.dart';
 import 'package:worksync/pages/stock/stock_list.dart';
 import 'package:worksync/pages/profile/profilepage.dart';
 import 'package:worksync/pages/attenndance/attendence_page.dart';
@@ -118,7 +118,7 @@ class _Home_pageState extends State<Home_page> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const DeliveryOrderPage(),
+                                      const CreateDeliveryPage(),
                                 ),
                               );
                             },
