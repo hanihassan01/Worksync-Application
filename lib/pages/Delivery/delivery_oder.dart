@@ -577,7 +577,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             flex: 5,
@@ -603,26 +603,19 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
           ),
           Expanded(
             flex: 3,
-            child: Center(
-              child: Container(
-                width: 60,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey.shade300),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextField(
+                controller: _deliveredQtyControllers[index],
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 8),
                 ),
-                child: TextField(
-                  controller: _deliveredQtyControllers[index],
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      int deliveredQty = int.tryParse(value) ?? 0;
+                onChanged: (value) {
+                  setState(() {
+                    int deliveredQty = int.tryParse(value) ?? 0;
                       if (deliveredQty < 0) {
                         deliveredQty = 0;
                       } else if (deliveredQty > item['ordered']) {
