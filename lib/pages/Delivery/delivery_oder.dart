@@ -69,16 +69,21 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     },
   ];
 
+  // Initializes the state of the widget.
   @override
   void initState() {
     super.initState();
+    // Determines if the page is in "view" or "create" mode based on the orderId.
     isViewMode = widget.orderId != null;
     if (isViewMode) {
+      // Loads the order data if in "view" mode.
       _loadDemoOrderData();
     }
   }
 
+  // Loads the demo order data into the state variables.
   void _loadDemoOrderData() {
+    // Finds the order with the matching ID or defaults to the first order.
     final order = _demoDliveryOrders.firstWhere(
       (o) => o['id'] == widget.orderId,
       orElse: () => _demoDliveryOrders[0],
@@ -97,6 +102,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     _initializeQtyControllers();
   }
 
+  // Launches Google Maps with directions from the current location to the delivery address.
   void _launchMap(String address) async {
     // Get current location
     LocationPermission permission = await Geolocator.requestPermission();
@@ -117,6 +123,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     }
   }
 
+  // Initializes the text controllers for the delivered quantity fields.
   void _initializeQtyControllers() {
     _deliveredQtyControllers.clear();
     for (final item in orderItems) {
@@ -126,6 +133,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     }
   }
 
+  // Returns the display label for a given status.
   String _getStatusLabel(String status) {
     switch (status) {
       case 'pending':
@@ -139,6 +147,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     }
   }
 
+  // Returns the color for a given status.
   Color _getStatusColor(String status) {
     switch (status) {
       case 'pending':
