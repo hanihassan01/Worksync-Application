@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:worksync/pages/Sales/model/sales_table_model_class.dart';
+import 'package:worksync/pages/Sales%20oder/model/sales_table_model_class.dart';
 
 class AddInvoiceItemSheet extends StatefulWidget {
   final Function(InvoiceItem) onSave;  
