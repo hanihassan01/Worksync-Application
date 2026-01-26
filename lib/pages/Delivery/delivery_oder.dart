@@ -19,12 +19,6 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
   String deliveryAddress = '';
   String currentStatus = '';
   List<Map<String, dynamic>> orderItems = [];
-
-  final TextEditingController _customerNameController = TextEditingController();
-  final TextEditingController _customerPhoneController =
-      TextEditingController();
-  final TextEditingController _deliveryAddressController =
-      TextEditingController();
   final List<TextEditingController> _deliveredQtyControllers = [];
 
   final List<Map<String, dynamic>> _demoDliveryOrders = [
@@ -91,9 +85,6 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     currentStatus = order['status'];
     orderItems = List<Map<String, dynamic>>.from(order['items']);
 
-    _customerNameController.text = customerName;
-    _customerPhoneController.text = customerPhone;
-    _deliveryAddressController.text = deliveryAddress;
     _initializeQtyControllers();
   }
 
@@ -164,23 +155,19 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          isViewMode
-              ? 'Order #${currentOrderId?.split('-').last} Details'
-              : 'New Delivery Order',
+          'Order #${currentOrderId?.split('-').last} Details',
           style: const TextStyle(
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
         ),
-        actions: isViewMode
-            ? [
-                IconButton(
-                  icon: const Icon(Icons.more_vert, color: Colors.black),
-                  onPressed: () {},
-                ),
-              ]
-            : [],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -189,9 +176,6 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (isViewMode) ...[
-                // ============================================================
-                // CUSTOMER INFORMATION CONTAINER (White)
-                // ============================================================
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
@@ -450,44 +434,6 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                     ),
                   ),
                 ),
-              ] else ...[
-                _buildFormField('Customer Name', _customerNameController),
-                const SizedBox(height: 12),
-                _buildFormField('Customer Phone', _customerPhoneController),
-                const SizedBox(height: 12),
-                _buildFormField(
-                  'Delivery Address',
-                  _deliveryAddressController,
-                  maxLines: 3,
-                ),
-                const SizedBox(height: 24),
-
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Delivery order created')),
-                      );
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade600,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Create Delivery Order',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ],
           ),
@@ -495,6 +441,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
       ),
     );
   }
+  
 
   Widget _buildStatusWidget(Map<String, dynamic> item) {
     final int ordered = item['ordered'];
@@ -634,7 +581,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
                 ),
               ),
             ),
-          ),
+          
           Expanded(
             flex: 2,
             child: Align(
@@ -647,45 +594,8 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     );
   }
 
-  Widget _buildFormField(
-    String label,
-    TextEditingController controller, {
-    int maxLines = 1,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: controller,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            hintText: 'Enter $label',
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 12,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   void dispose() {
-    _customerNameController.dispose();
-    _customerPhoneController.dispose();
-    _deliveryAddressController.dispose();
     for (final controller in _deliveredQtyControllers) {
       controller.dispose();
     }
