@@ -4,7 +4,7 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
-import 'package:worksync/pages/Sales/model/sales_table_model_class.dart';
+import 'package:worksync/pages/Sales%20oder/model/sales_table_model_class.dart';
 
 class EditInvoiceItemSheet extends StatefulWidget {
   final InvoiceItem item;               // The item to edit

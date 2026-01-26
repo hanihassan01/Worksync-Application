@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:worksync/pages/Sales/model/sales_table_model_class.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/add_items.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/edit_item_tabil.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/tabil.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/tabil_vew.dart';
+import 'package:worksync/pages/Sales%20oder/model/sales_table_model_class.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/add_items.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/edit_item_tabil.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/tabil.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/tabil_vew.dart';
 
 class InvoiceScreen extends StatefulWidget {
   const InvoiceScreen({super.key});

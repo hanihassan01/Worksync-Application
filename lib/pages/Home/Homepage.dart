@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worksync/pages/Delivery/delivary_oder_creation.dart';
-import 'package:worksync/pages/Sales/salesoder.dart';
-import 'package:worksync/pages/Sales/sales_lisy.dart';
+import 'package:worksync/pages/Sales%20oder/sales_list.dart';
+import 'package:worksync/pages/Sales%20oder/salesoder.dart';
 import 'package:worksync/pages/Delivery/delivery_list.dart';
 import 'package:worksync/pages/Delivery/delivery_oder.dart';
 import 'package:worksync/pages/stock/stock_list.dart';

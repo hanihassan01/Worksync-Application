@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:worksync/pages/Sales%20oder/sales_oder_view.dart';
+import 'package:worksync/pages/invoice/invoice_list.dart';
 // Sales order view page removed dependency; no DB interactions
 
 class SalesListPage extends StatefulWidget {
@@ -48,10 +50,8 @@ class _SalesListPageState extends State<SalesListPage>
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-   
     return Container(
       color: Colors.grey.shade100,
       child: SafeArea(
@@ -83,8 +83,8 @@ class _SalesListPageState extends State<SalesListPage>
                   // Sales Orders tab
                   _buildOrdersList('draft'),
 
-                  // Invoices tab (submitted orders)
-                  _buildOrdersList('submitted'),
+                  // Invoices tab - Display the invoice list from invoice module
+                  InvoiceListPage(),
                 ],
               ),
             ),
@@ -123,30 +123,9 @@ class _SalesListPageState extends State<SalesListPage>
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              showDialog<void>(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: Text('Order ${o['id']}'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Customer: ${o['customer']}'),
-                      const SizedBox(height: 8),
-                      Text('Amount: ₹${o['amount']}'),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Status: ${o['status'] == 'paid' ? 'Paid' : 'Pending'}',
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(ctx),
-                      child: const Text('Close'),
-                    ),
-                  ],
-                ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SalesOderVew()),
               );
             },
             child: Padding(

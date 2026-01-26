@@ -4,9 +4,9 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
-import 'package:worksync/pages/Sales/model/sales_table_model_class.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/tabilrows.dart';
-import 'package:worksync/pages/Sales/salaes_widgets/tablehead.dart';
+import 'package:worksync/pages/Sales%20oder/model/sales_table_model_class.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/tabilrows.dart';
+import 'package:worksync/pages/Sales%20oder/salaes_widgets/tablehead.dart';
 
 class InvoiceTable extends StatefulWidget {
   final List<InvoiceItem> items;
